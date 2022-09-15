@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>TypeScript Doc</title>
+</head>
+<body>
+    <nav id="navbar">
+        <header>TypeScript Everyday Types</header>
+        <a href="#The_primitives" class="nav-link">The primitives</a>
+        <a href="#Arrays" class="nav-link">Arrays</a>
+        <a href="#any" class="nav-link">any</a>
+        <a href="#Type_Annotations_on_Variables" class="nav-link">Type Annotations on Variables</a>
+        <a href="#Object_Types" class="nav-link">Object Types</a>
+        <a href="#Functions" class="nav-link">Functions</a>
+        <a href="#Interfaces" class="nav-link">Interfaces</a>
+        <a href="#Reference" class="nav-link">Reference</a>
+    </nav>
+    
+    
+    
+    <main id="main-doc">
+        <div id="subtitle-description">
+            <p>In this chapter, we’ll cover some of the most common types of values you’ll find in JavaScript code, and explain the corresponding ways to describe those types in TypeScript. This isn’t an exhaustive list, and future chapters will describe more ways to name and use other types.</p>
+            <p>Types can also appear in many more places than just type annotations. As we learn about the types themselves, we’ll also learn about the places where we can refer to these types to form new constructs.</p>
+            <p>We’ll start by reviewing the most basic and common types you might encounter when writing JavaScript or TypeScript code. These will later form the core building blocks of more complex types.</p>    
+        </div>
+        
+        <section class="main-section" id="The_primitives">
+            <header>The primitives</header>
+            <p>
+                The primitives: JavaScript has three very commonly used primitives: <span class="code-syn">string</span>, <span class="code-syn">number</span>, and <span class="code-syn">boolean</span>. Each has a corresponding
+                type in TypeScript. As you might expect, these are the same names you’d see if you used the JavaScript <span class="code-syn">typeof</span> operator on a value of those types:
+            </p>
+            <ul>
+                <li><span class="code-syn">string</span> represents string values like <span class="code-syn">"Hello, world"</code></li>
+                <li><span class="code-syn">number</span> is for numbers like <span class="code-syn">42</span>. JavaScript does not have a special runtime value for integers, so there’s no equivalent to <span class="code-syn">int</span> or <span class="code-syn">float</span> - everything is simply <span class="code-syn">number</span></li>
+                <li><span class="code-syn">boolean</span> is for the two values <span class="code-syn">true</span> and <span class="code-syn">false</span></li>
+            </ul>
+            <p class="p-note">The type names <span class="code-syn">String</span>, <span class="code-syn">Number</span>, and <span class="code-syn">Boolean</span> (starting with capital letters) are legal, but refer to some special built-in types that will very rarely appear in your code. <span style="font-style: italic;">Always</span> use <span class="code-syn">string</span>, <span class="code-syn">number</span>, or <span class="code-syn">boolean</span> for types.</p>
+        </section>
+            
+        <section class="main-section" id="Arrays">
+            <header>Arrays</header>
+            <p>Arrays: To specify the type of an array like <span class="code-syn">[1, 2, 3]</span>, you can use the syntax <span class="code-syn">number[]</span>; this syntax works for any type (e.g. <span class="code-syn">string[]</span> is an array of strings, and so on). You may also see this written as <span class="code-syn">Array&ltnumber&gt</span>, which means the same thing.</p>
+            <p class="p-note">Note that <span class="code-syn">[number]</span> is a different thing; refer to the section on <a target="_blank" href="https://www.typescriptlang.org/docs/handbook/2/objects.html#tuple-types">Tuples</a>.</p>
+        </section>
+
+        <section class="main-section" id="any">
+            <header class="code-syn">any</header>
+            <p>any: TypeScript also has a special type, any, that you can use whenever you don’t want a particular value to cause typechecking errors.</p>
+            <p>
+                When a value is of type any, you can access any properties of it (which will in turn be of type any), call it like a function, assign it to (or from)
+                a value of any type, or pretty much anything else that’s syntactically legal:
+            </p>
+            <div class="code-example-container">
+                <code>
+                    let obj: any = { x: 0 };<br>
+                    // None of the following lines of code will throw compiler errors.<br>
+                    // Using `any` disables all further type checking, and it is assumed<br>
+                    // you know the environment better than TypeScript.<br>
+                    obj.foo();<br>
+                    obj();<br>
+                    obj.bar = 100;<br>
+                    obj = "hello";<br>
+                    const n: number = obj;
+                </code>
+                <a class="try-it" target="_blank" href="https://www.typescriptlang.org/play?#code/DYUwLgBA9gRgVgLggQwHYE8IF4IG8IAeSADBAL4DcAsAFAD0dEAclKiNAGYRgAW7HUYMCgB3AJaoA5hGASQAZ04QAxlAAm7cUO48ATqJVQAtgAcxoXRBC79u+QDpaDCAFV5E6QAM06TxDVi8sgwoIrI2hwArrq81tzoJuzKfMoA1h4ANCioahBikIEo8vKRRiC5TozoUJEQqagGsVaoAG5i+qhlqJAw4GBxvGgQACoJIADKyrpiJmCONLBw9gJQABQAlNQL8Btbi-YwyJY4AIzExHvw2BAARHxCUDdbqqjykKhIqKW9x9DwFEA"> Try it</a>
+            </div>
+            
+            <div class="subsection">
+                <header><span class="code-syn">noImplicitAny</span></header>
+                <p>When you don’t specify a type, and TypeScript can’t infer it from context, the compiler will typically default to <span class="code-syn">any</span>.</p>
+                <p>You usually want to avoid this, though, because <span class="code-syn">any</span> isn’t type-checked. Use the compiler flag <a target="_blank" href="https://www.typescriptlang.org/tsconfig#noImplicitAny">noImplicitAny</a> to flag any implicit <span>any</span> as an error.</p>
+            </div>
+        </section>
+
+        <section class="main-section" id="Type_Annotations_on_Variables">
+            <header>Type Annotations on Variables</header>
+            <p>Type Annotations on Variables: When you declare a variable using <span class="code-syn">const</span>, <span class="code-syn">var</span>, or <span class="code-syn">let</span>, you can optionally add a type annotation to explicitly specify the type of the variable:</p>
+            <code>
+                let myName: string = "Alice";
+                <a class="try-it" target="_blank" href="https://www.typescriptlang.org/play?#code/DYUwLgBAtgngcgQyiAXBAzmATgSwHYDmEAvBAEQCCwOAxiGQNwCwAUAPRsRfdcB6-A-hAAqMAA4gICPHgD2YBGByy8QA">Try it</a>
+            </code>
+            <p class="p-note">TypeScript doesn’t use “types on the left”-style declarations like <span class="code-syn">int  x = 0;</span> Type annotations will always go after the thing being typed.</p>
+            <p>In most cases, though, this isn’t needed. Wherever possible, TypeScript tries to automatically <span style="font-style: italic;">infer</span> the types in your code. For example, the type of a variable is inferred based on the type of its initializer:</p>
+            <div class="code-example-container">
+                <code>
+                    // No type annotation needed -- 'myName' inferred as type 'string'<br>
+                    let myName = "Alice";
+                </code>
+                <a class="try-it" target="_blank" href="https://www.typescriptlang.org/play?#code/PTAEDkHtQFwTwA4FNQEMB27I1TAlpOqOkkgCbmgC0VoA5ALZzioNJ2h7oBmSATn0qoAzrEQo6wmHy4BzOgFgAUABskMUExZtQAXlAAiAIIq8AYyQGA3EA">Try it</a>
+            </div>
+            <p>For the most part you don’t need to explicitly learn the rules of inference. If you’re starting out, try using fewer type annotations than you think - you might be surprised how few you need for TypeScript to fully understand what’s going on.</p>
+        </section>
+
+        <section class="main-section" id="Functions">
+            <header>Functions</header>
+            <p>Functions are the primary means of passing data around in JavaScript. TypeScript allows you to specify the types of both the input and output values of functions.
+            </p>
+            <div class="subsection">
+                <header>Parameter Type Annotations</header>
+                <p>
+                    When you declare a function, you can add type annotations after each parameter to declare what types of parameters the function accepts.
+                    Parameter type annotations go after the parameter name:
+                </p>
+                <div class="code-example-container">
+                    <code>
+                        // Parameter type annotation<br>
+                        function greet(name: string) {<br>
+                        console.log("Hello, " + name.toUpperCase() + "!!");<br>
+                        }
+                    </code>
+                    <a class="try-it" target="_blank" href="https://www.typescriptlang.org/play?#code/PTAEAUEMCdIWwKYBcHVEgngBwaSA7fAeyUiQEsj8BYAKADMBXfAYwqtAHNoFkAKfPAQAuUAGck0cvk4BKUAG86oUCBXqNm9QD1de3ctAsqYogBsEAOjNFOfAEQAJBGZsAaUPdABqUIMSWSEQAqlg40ADCkGIIfPK+9gCEifayANx0AL5AA">Try</a>
+                </div>
+                <p>When a parameter has a type annotation, arguments to that function will be checked:</p>
+                
+                <div class="code-example-container">
+                    <code>
+                        // Would be a runtime error if executed!<br>
+                        greet(42);<br>
+                        <span class="code-error">Argument of type 'number' is not assignable to parameter of type 'string'.</span>
+                    </code>
+                    <a class="try-it" target="_blank" href="https://www.typescriptlang.org/play?#code/PTAEAEFMCdoe2gZwFygEwGYAsBWAsAFAAmkAxgDYCG0koAZgK4B2pALgJZxOgDmNkrABRNKAW0ipEraOyY8AlKgBucdkQDchEKAC0e0g1Z6dWsAHU4DckVAAjWpVDRmHcaBjxoodnXcAPMkNIIgBCQj5IAUEsNHl1IA">Try</a>
+                </div>
+                <p class="p-attention">Even if you don’t have type annotations on your parameters, TypeScript will still check that you passed the right number of arguments.</p>
+            </div>
+
+            <div class="subsection">
+                <header>Return Type Annotations</header>
+                <p>You can also add return type annotations. Return type annotations appear after the parameter list:</p>
+                <div class="code-example-container">
+                    <code>
+                        function getFavoriteNumber(): number {<br>
+                            return 26;<br>
+                        }
+                    </code>
+                    <a class="try-it" target="_blank" href="https://www.typescriptlang.org/play?#code/GYVwdgxgLglg9mABAcwKZQGIEMBucBOMUqAciALYBGq+AFAJQBciYF1+iA3gLABQiiAPSCBoseIliAejNky+A-OhD4kAJgBsAbj4BfIA">Try</a>
+                </div>
+                <p>
+                    Much like variable type annotations, you usually don’t need a return type annotation because TypeScript will infer the function’s return type 
+                    based on its <span class="code-syn">return</span> statements. The type annotation in the above example doesn’t change anything. Some codebases will explicitly specify a return
+                    type for documentation purposes, to prevent accidental changes, or just for personal preference.
+                </p>
+            </div>
+
+            <div class="subsection">
+                <header>Anonymous Functions</header>
+                <p>
+                    Anonymous functions are a little bit different from function declarations. When a function appears in a place where TypeScript can determine how it’s going to be called,
+                    the parameters of that function are automatically given types.<br>
+                    Here’s an example:
+                </p>
+                
+                    <div class="code-example-container">
+                        <code>
+                        // No type annotations here, but TypeScript can spot the bug<br>
+                        const names = ["Alice", "Bob", "Eve"];<br>
+                        <br>
+                        // Contextual typing for function<br>
+                        names.forEach(function (s) {<br>
+                        console.log(s.toUppercase());<br>
+                        <span class="code-error">Property 'toUppercase' does not exist on type 'string'. Did you mean 'toUpperCase'?</span><br>
+                        <br>
+                        });<br>
+                        <br>
+                        // Contextual typing also applies to arrow functions<br>
+                        names.forEach((s) => {<br>
+                        console.log(s.toUppercase());<br>
+                        <span class="code-error">Property 'toUppercase' does not exist on type 'string'. Did you mean 'toUpperCase'?</span><br>
+                        <br>
+                        });
+                        <a class="try-it" target="_blank" href="https://www.typescriptlang.org/play#code/PTAEAEFMCdoe2gZwFygEwFYMEYCwAoEUAOTlABcBPAB0lAEMA7Ruc+8gSzkcVAAsYkADSgARgFdyoACo1IAZQDG0DtSmKmoRNVYUBY8QHMCi7oimN6AW0i8AvKADaAIgCCAGw6LIzkc4BCcKK+oM4AogBuPgC6ANwEBEQAwtzkkAAe5OL07hQ0HIyGoABmCCXijIqc3ASWNogAdKXQYfSKfAAUxRVVXIygHYgAlKAA3gSgoKY8cO6QDe5whoMN5HAAqtS00BqIkB1DQ-H4AL5HCYRgKYxpmdm5VNQFRTmIZPRbnrYU77BwAO7lSrVHi1ay2JoIVrtDqDEZ2AB8YwmUzMs3mi2WjTWm22u32h2OZ1iQA">Try</a>
+                    </div>                   
+                </code>
+
+                <p>
+                    Even though the parameter <span class="code-syn">s</span> didn’t have a type annotation, TypeScript used the types of the <span class="code-syn">forEach</span> function, along with the inferred type of the
+                    array, to determine the type <span class="code-syn">s</span> will have.
+                </p>
+                <p>This process is called <span style="font-style: italic;">contextual typing</span> because the <span style="font-style: italic;">context</span> that the function occurred within informs what type it should have.</p>
+                <p>
+                    Similar to the inference rules, you don’t need to explicitly learn how this happens, but understanding that it does happen can help you notice when type annotations aren’t needed. Later, we’ll see more examples of
+                    how the context that a value occurs in can affect its type.
+                </p>
+            </div>
+        </section>
+
+        <section class="main-section" id="Object_Types">
+            <header>Object Types</header>
+            <p>
+                Object Types: Apart from primitives, the most common sort of type you’ll encounter is an <span style="font-style: italic;">object type</span>. This refers to any JavaScript value with properties, which is almost all of them!
+                To define an object type, we simply list its properties and their types.<br>
+                For example, here’s a function that takes a point-like object:
+            </p>
+            <div class="code-example-container">
+                <code>
+                    // The parameter's type annotation is an object type<br>
+                    function printCoord(pt: { x: number; y: number }) {<br>
+                    console.log("The coordinate's x value is " + pt.x);<br>
+                    console.log("The coordinate's y value is " + pt.y);<br>
+                    }<br>
+                    printCoord({ x: 3, y: 7 });
+                </code>
+                <a class="try-it" target="_blank" href="https://www.typescriptlang.org/play?#code/PTAEBUAsFNQBwIYCcEFtoBdpIOQGdQMBPOWBAO3IHsMEMBLK80egi0KgIwCtoBjDIRLQAsACgAZgFdyAxszhJ65DAGEqVJABMAFHAwAuUAG9QADyPkpqTtgDcoIpeu2koAL4BKE+NCgQfoFBwSF+AHoRkVHRMZG+oHxMeFQANtAAdClUAOY6AERQsImaWsp00PjmoABuCClSsKygeaAA1PAY6WaedvGJ5MlpmTn5hQka2mVYlUQ1dQ0sBC3t+ulEPeLu4orKahO6phagAMwANI5GAOwePUA">Try</a>
+            </div>
+            <p>
+                Here, we annotated the parameter with a type with two properties - <span class="code-syn">x</span> and <span class="code-syn">y</span> - which are both of type <span class="code-syn">number</span>. You can use <span class="code-syn">,</span> or <span class="code-syn">;</span> to separate the properties, and
+                the last separator is optional either way.
+            </p>
+            <p>The type part of each property is also optional. If you don’t specify a type, it will be assumed to be <span class="code-syn">any</span>.</p>
+            <div class="subsection">
+                <header>Optional Properties</header>
+                <p>Object types can also specify that some or all of their properties are <span style="font-style: italic;">optional</span>. To do this, add a <span class="code-syn">?</span> after the property name:</p>
+                <div class="code-example-container">
+                    <code>
+                        function printName(obj: { first: string; last?: string }) {<br>
+                            // ...<br>
+                        }<br>
+                        // Both OK<br>
+                        printName({ first: "Bob" });<br>
+                        printName({ first: "Alice", last: "Alisson" });
+                    </code>
+                    <a class="try-it" target="_blank" href="https://www.typescriptlang.org/play?#code/GYVwdgxgLglg9mABABwE4zFAcgQwLYCmAFHAEYBWAXIgN6LAyoDOU1L6YA5gNyIA2OFgH42UDp0QBfAJS0AsAChEiAPQrEAOi2LJitYgBCcKAAtEAeQDSitBmz5idBs1aIAREdJup07jY72hEROjCzUbgCCfDAQBG4ANPyCrpHRTEwI3jLcQA">Try</a>
+                </div>
+                <p>
+                    In JavaScript, if you access a property that doesn’t exist, you’ll get the value <span class="code-syn">undefined</span> rather than a runtime error. Because of this,
+                    when you <span style="font-style: italic;">read</span> from an optional property, you’ll have to check for <span class="code-syn">undefined</span> before using it.
+                </p>
+                <div class="code-example-container">
+                    <code>
+                        function printName(obj: { first: string; last?: string }) {<br>
+                            // Error - might crash if 'obj.last' wasn't provided!<br>
+                            console.log(obj.last.toUpperCase());<br>
+                            <span class="code-error">Object is possibly 'undefined'.</span><br>
+                            <br>
+                            if (obj.last !== undefined) {<br>
+                                // OK<br>
+                                console.log(obj.last.toUpperCase());<br>
+                            }<br>
+                            <br>
+                            // A safe alternative using modern JavaScript syntax:<br>
+                            console.log(obj.last?.toUpperCase());
+                        }
+                    </code>
+                    <a class="try-it" target="_blank" href="https://www.typescriptlang.org/play?#code/PTAEAEFMCdoe2gZwFygEwFYDMaCwAoAMwFcA7AYwBcBLOU0AB2mtMoDkBDAW0gAo4ARgCtUAb1CFqSSqkSVmpAOYBuUABsOcgPyz5LRaAC+ASlCiCoUCFABRWAlABaUF2qKAFpVDlom96GpCUAByQSEAOg05YNAAd01SYK8mOAA3agATSAyAQgtvOkQ4NUhIuEV+YUjNSnDKOABVBgYYAGFNPmNjZXzA0EqIqK8cgF4R0DIsyVJs03N8S0trAHkAaXzLckLi0rVygeq5Osbmto7eLp6FowJ86wBBUEQOQkhQDjVKGFIOGlS34iIfQuOBZaD0ABSHFSHAAyj5qAwvIgAJ6sDgAD2Q+S2pCKJTKFTCh0oWmOTRa0HaiE63QIhiAA">Try</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="main-section" id="Interfaces">
+            <header>Interfaces</header>
+            <p>An <span style="font-style: italic;">interface declaration</span> is another way to name an object type:</p>
+            <div class="code-example-container">
+                <code>
+                    interface Point {<br>
+                        x: number;<br>
+                        y: number;<br>
+                    }<br>
+                       <br>
+                    function printCoord(pt: Point) {<br>
+                    console.log("The coordinate's x value is " + pt.x);<br>
+                    console.log("The coordinate's y value is " + pt.y);<br>
+                    }<br>
+                       <br>
+                    printCoord({ x: 100, y: 100 });
+                </code>
+                <a class="try-it" target="_blank" href="https://www.typescriptlang.org/play?#code/JYOwLgpgTgZghgYwgAgAoHtRmQbwLABQyyAHgFzIgCuAtgEbQDchxAnhdfU4QL6GEwqIBGGDoQyAA5QsAYXTooAEwAUksBQxYAlLhbIE4gM7oANhAB0p9AHMVAIgAqACxSHFS0HEgByI6WQANzhTKhRgf3tkAGopMAsSbWYiA2MzS2s7J1dUjy9ff1YgkLDkCOQo2PULViTefgJpOQVlFRxSCgBGAAZugBpkdmQe7uQeJKA">Try</a>
+            </div>
+            <p>
+                Just like when we used a type alias above, the example works just as if we had used an anonymous object type. 
+                TypeScript is only concerned with the <span styke="font-style: italic;">structure</span> of the value we passed to <span class="code-syn">printCoord</span> - it only cares that it 
+                has the expected properties. Being concerned only with the structure and capabilities of types is why we call TypeScript a <span style="font-style: italic;">structurally typed type system</span>.
+            </p>
+            <div class="subsection">
+                <header>Differences Between Type Aliases and Interfaces</header>
+                <p>
+                    Type aliases and interfaces are very similar, and in many cases you can choose between them freely. Almost all features of 
+                    an <span class="code-syn">interface</span> are available in <span class="code-syn">type</span>, the key distinction is that a type cannot be re-opened to add new properties vs an 
+                    interface which is always extendable.
+                </p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Interface</th>
+                            <th>Type</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Extending an interface</p>
+                                <code>
+                                    <pre>
+interface Animal {
+    name: string
+}   
+<br>
+interface Bear extends Animal {
+honey: boolean
+}
+<br>
+const bear = getBear() 
+bear.name
+bear.honey
+                                    </pre>
+                                </code>
+                            </td>
+                            <td>
+                                <p>Extending a type via intersections</p>
+                                <code>
+                                    <pre>
+type Animal = {
+    name: string
+}
+<br> 
+type Bear = Animal & { 
+honey: boolean 
+}
+<br>
+const bear = getBear();
+bear.name;
+bear.honey;
+                                    </pre>
+                                </code>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <p>Adding new fields to an existing interface</p>
+                                <code>
+                                    <pre>
+interface Window {
+title: string
+}
+<br>
+interface Window {
+ts: TypeScriptAPI
+}
+<br>
+const src = 'const a = "Hello World"';
+window.ts.transpileModule(src, {});
+                                    </pre>
+                                </code>
+                            </td>
+
+                            <td>
+                                <p>A type cannot be changed after being created</p>
+                                <code>
+                                    <pre>
+type Window = {
+title: string
+}
+<br>
+type Window = {
+ts: TypeScriptAPI
+}
+<br>
+// Error: Duplicate identifier 'Window'.<br>
+                                    </pre>
+                                </code>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <p>You’ll learn more about these concepts in later chapters, so don’t worry if you don’t understand all of these right away.</p>
+                <ul>
+                    <li>
+                        Prior to TypeScript version 4.2, type alias names <a target="_blank" href="https://www.typescriptlang.org/play#code/PTAEGEHsFsAcEsA2BTATqNrLusgzngIYDm+oA7koqIYuYQJ56gCueyoAUCKAC4AWHAHaFcoSADMaQ0PCG80EwgGNkALk6c5C1EtWgAsqOi1QAb06groEbjWg8vVHOKcAvpokshy3vEgyyMr8kEbQJogAFND2YREAlOaW1soBeJAoAHSIkMTRmbbI8e6aPMiZxJmgACqCGKhY6ABGyDnkFFQ0dIzMbBwCwqIccabcYLyQoKjIEmh8kwN8DLAc5PzwwbLMyAAeK77IACYaQSEjUWZWhfYAjABMAMwALA+gbsVjoADqgjKESytQPxCHghAByXigYgBfr8LAsYj8aQMUASbDQcRSExCeCwFiIQh+AKfAYyBiQFgOPyIaikSGLQo0Zj-aazaY+dSaXjLDgAGXgAC9CKhDqAALxJaw2Ib2RzOISuDycLw+ImBYKQflCkWRRD2LXCw6JCxS1JCdJZHJ5RAFIbFJU8ADKC3WzEcnVZaGYE1ABpFnFOmsFhsil2uoHuzwArO9SmAAEIsSFrZB-GgAjjA5gtVN8VCEc1o1C4Q4AGlR2AwO1EsBQoAAbvB-gJ4HhPgB5aDwem-Ph1TCV3AEEirTp4ELtRbTPD4vwKjOfAuioSQHuDXBcnmgACC+eCONFEs73YAPGGZVT5cRyyhiHh7AAON7lsG3vBggB8XGV3l8-nVISOgghxoLq9i7io-AHsayRWGaFrlFauq2rg9qaIGQHwCBqChtKdgRo8TxRjeyB3o+7xAA"><span style="font-style: italic;">may</span> appear in error messages</a>, sometimes in place of the equivalent 
+                        anonymous type (which may or may not be desirable). Interfaces will always be named in error messages.
+                    </li>
+                    <li>
+                        Type aliases may not participate <a target="_blank" href="https://www.typescriptlang.org/play?#code/PTAEEEDtQS0gXApgJwGYEMDGjSfdAIx2UQFoB7AB0UkQBMAoEUfO0Wgd1ADd0AbAK6IAzizp16ALgYM4SNFhwBZdAFtV-UAG8GoPaADmNAcMmhh8ZHAMMAvjLkoM2UCvWad+0ARL0A-GYWVpA29gyY5JAWLJAwGnxmbvGgALzauvpGkCZmAEQAjABMAMwALLkANBl6zABi6DB8okR4Jjg+iPSgABboovDk3jjo5pbW1d6+dGb5djLwAJ7UoABKiJTwjThpnpnGpqPBoTLMAJrkArj4kOTwYmycPOhW6AR8IrDQ8N04wmo4HHQCwYi2Waw2W1S6S8HX8gTGITsQA">in declaration merging, but interfaces can</a>.
+                    </li>
+                    <li>
+                        Interfaces may only be used to <a target="_blank" href="https://www.typescriptlang.org/play?#code/PTAEAkFMCdIcgM6gC4HcD2pIA8CGBbABwBtIl0AzUAKBFAFcEBLAOwHMUBPQs0XFgCahWyGBVwBjMrTDJMAshOhMARpD4tQ6FQCtIE5DWoixk9QEEWAeV37kARlABvaqDegAbrmL1IALlAEZGV2agBfampkbgtrWwMAJlAAXmdXdy8ff0Dg1jZwyLoAVWZ2Lh5QVHUJflAlSFxROsY5fFAWAmk6CnRoLGwmILzQQmV8JmQmDzI-SOiKgGV+CaYAL0gBBdyy1KCQ-Pn1AFFplgA5enw1PtSWS+vCsAAVAAtB4QQWOEMKBuYVUiVCYvYQsUTQcRSBDGMGmKSgAAa-VEgiQe2GLgKQA">declare the shapes of objects, not rename primitives</a>.
+                    </li>
+                    <li>
+                        Interface names will <a target="_blank" href="https://www.typescriptlang.org/play#code/PTAEGEHsFsAcEsA2BTATqNrLusgzngIYDm+oA7koqIYuYQJ56gCueyoAUCKAC4AWHAHaFcoSADMaQ0PCG80EwgGNkALk6c5C1EtWgAsqOi1QAb06groEbjWg8vVHOKcAvpokshy3vEgyyMr8kEbQJogAFND2YREAlOaW1soBeJAoAHSIkMTRmbbI8e6aPMiZxJmgACqCGKhY6ABGyDnkFFQ0dIzMbBwCwqIccabcYLyQoKjIEmh8kwN8DLAc5PzwwbLMyAAeK77IACYaQSEjUWY2Q-YAjABMAMwALA+gbsVjNXW8yxySoAADaAA0CCaZbPh1XYqXgOIY0ZgmcK0AA0nyaLFhhGY8F4AHJmEJILCWsgZId4NNfIgGFdcIcUTVfgBlZTOWC8T7kAJ42G4eT+GS42QyRaYbCgXAEEguTzeXyCjDBSAAQSE8Ai0Xsl0K9kcziExDeiQs1lAqSE6SyOTy0AKQ2KHk4p1V6s1OuuoHuzwArMagA"><span style="font-style: italic;">always</span> appear in their original form</a> in error messages, but <span style="font-style: italic;">only</span> when they are used by name.
+                    </li>
+                </ul>
+                <p>
+                    For the most part, you can choose based on personal preference, and TypeScript will tell you if it needs something to be the other kind of declaration. 
+                    If you would like a heuristic, use <span class="code-syn">interface</span> until you need to use features from <span class="code-syn">type</span>.
+                </p>
+            </div>
+        </section>
+
+        <section class="main-section" id="Reference">
+            <header>Reference</header>
+            <p>
+                This information is taken from <a target="_blank" href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html">https://www.typescriptlang.org/docs/handbook/2/everyday-types.html</a><br>
+            </p>
+        </section>
+    </main>
+</body>
+</html>
