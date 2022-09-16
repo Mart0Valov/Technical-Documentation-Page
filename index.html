@@ -282,90 +282,85 @@
                     an <span class="code-syn">interface</span> are available in <span class="code-syn">type</span>, the key distinction is that a type cannot be re-opened to add new properties vs an 
                     interface which is always extendable.
                 </p>
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>Interface</th>
-                            <th>Type</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Extending an interface</p>
-                                <code>
-                                    <pre>
-interface Animal {
-    name: string
-}   
-<br>
-interface Bear extends Animal {
-honey: boolean
-}
-<br>
-const bear = getBear() 
-bear.name
-bear.honey
-                                    </pre>
-                                </code>
-                            </td>
-                            <td>
-                                <p>Extending a type via intersections</p>
-                                <code>
-                                    <pre>
-type Animal = {
-    name: string
-}
-<br> 
-type Bear = Animal & { 
-honey: boolean 
-}
-<br>
-const bear = getBear();
-bear.name;
-bear.honey;
-                                    </pre>
-                                </code>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>
-                                <p>Adding new fields to an existing interface</p>
-                                <code>
-                                    <pre>
-interface Window {
-title: string
-}
-<br>
-interface Window {
-ts: TypeScriptAPI
-}
-<br>
-const src = 'const a = "Hello World"';
-window.ts.transpileModule(src, {});
-                                    </pre>
-                                </code>
-                            </td>
 
-                            <td>
-                                <p>A type cannot be changed after being created</p>
+                <div id="table-container">
+                    <div id="interface-column">
+                        <header>Interface</header>
+                        <div class="first-row">
+                            <p>Extending an interface</p>
+                            <div class="code-container">
                                 <code>
-                                    <pre>
-type Window = {
-title: string
-}
-<br>
-type Window = {
-ts: TypeScriptAPI
-}
-<br>
-// Error: Duplicate identifier 'Window'.<br>
-                                    </pre>
+                                    interface Animal {<br>
+                                        name: string<br>
+                                    }<br>
+                                    <br>
+                                    interface Bear extends Animal {<br>
+                                    honey: boolean<br>
+                                    }<br>
+                                    <br>
+                                    const bear = getBear() <br>
+                                    bear.name<br>
+                                    bear.honey
                                 </code>
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
+                        <div class="second-row">
+                            <p>Adding new fields to an existing interface</p>
+                            <div class="code-container">
+                                <code>
+                                    interface Window {<br>
+                                        title: string<br>
+                                    }<br>
+                                    <br>
+                                    interface Window {<br>
+                                    ts: TypeScriptAPI<br>
+                                    }<br>
+                                    <br>
+                                    const src = 'const a = "Hello World"';<br>
+                                    window.ts.transpileModule(src, {});
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="type-column">
+                        <header>Type</header>
+                        <div class="first-row">
+                            <p>Extending a type via intersections</p>
+                            <div class="code-container">
+                                <code>
+                                    type Animal = {<br>
+                                        name: string<br>
+                                    }<br>
+                                    <br>
+                                    type Bear = Animal & { <br>
+                                    honey: boolean <br>
+                                    }<br>
+                                    <br>
+                                    const bear = getBear();<br>
+                                    bear.name;<br>
+                                    bear.honey;
+                                </code>
+                            </div>
+                        </div>
+                        <div class="second-row">
+                            <p>A type cannot be changed after being created</p>
+                            <div class="code-container">
+                                <code>
+                                    type Window = {<br>
+                                        title: string<br>
+                                    }<br>
+                                    <br>
+                                    type Window = {<br>
+                                    ts: TypeScriptAPI<br>
+                                    }<br>
+                                    <br>
+                                    // Error: Duplicate identifier 'Window'.<br>
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    </tbody>
-                </table>
                 <p>You’ll learn more about these concepts in later chapters, so don’t worry if you don’t understand all of these right away.</p>
                 <ul>
                     <li>
