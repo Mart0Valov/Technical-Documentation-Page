@@ -1,0 +1,161 @@
+html {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+}
+
+#navbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+}
+
+#navbar header {
+    padding: 0.5em;
+    font-size: 2em;
+}
+
+#navbar a{
+    text-decoration: none;
+    color: black;
+    padding: 1em;
+    font-size: 1.3em;
+    border-bottom: 1px solid grey;
+    margin-right: 1em;
+}
+
+#navbar a:active {
+    color:black;
+}
+
+#navbar a:visited {
+    color: black;
+}
+
+#main-doc {
+    margin: 1em 0 0 24em;
+}
+
+.main-section {
+    margin-bottom: 3em;
+    box-shadow:  0 8px 6px -6px grey;
+    padding: 10px;
+}
+
+.main-section header {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.p-note {
+    background-color: rgba(177, 211, 255, 0.674);
+    font-size: 12px;
+    padding: 5px 15px;
+}
+
+.code-example-container {
+    border-left:0.1em solid rgb(45, 181, 249);
+    border-bottom:0.1em solid rgb(45, 181, 249);
+    padding: 1em;
+}
+.code-example-container a{
+    position: absolute;
+    left: 90%;
+    margin-top: -10px;
+    width: 70px;
+    height: 20px;
+    border-radius: 10%;
+    border: 1px solid rgb(45, 181, 249);
+    text-align: center;
+    text-decoration: none;
+    color: rgb(45, 181, 249);
+    display: none;
+}
+
+.code-example-container:hover a{
+    display: inline-block;
+}
+
+
+.code-example-container a:hover {
+    color: white;
+    background-color: rgb(45, 181, 249);
+    border-color: white;
+}
+
+.code-syn {
+    background-color: rgba(201, 201, 201, 0.516);
+    padding: 0.2em 0.2em 0.2em 0.2em;
+    font-size: 12px;
+    font-family: monospace;
+    width: auto;
+    display: inline-block;
+    /* color: white; */
+}
+
+.code-error {
+    background-color: rgb(255, 230, 230);
+}
+
+#table-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.code-container {
+    border-left: 0.1em solid black;
+    border-bottom: 0.1em solid black;
+    padding: 0.5em;
+}
+#type-column {
+    margin-left: 1em;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        display: block;
+    }
+    
+    #navbar {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+    #navbar header {
+        text-align: center;
+    }
+    #navbar a {
+        display: block;
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 0.1em;
+        border: none;
+        margin: 0;
+    }
+    #navbar a:visited {
+        color: white;
+    }
+    #navbar a:hover{
+        background-color: white;
+        color: #333;
+    }
+    #main-doc {
+        margin: 0;
+    }
+    .code-example-container a {
+        display: block;
+        margin: 0;
+        left: 0;
+        position: absolute;
+        left: 80%;
+        margin-top: -1em;
+    }
+    .code-example-container:hover a {
+        display: block;
+    }
+    
+}
